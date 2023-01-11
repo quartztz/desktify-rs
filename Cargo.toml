@@ -8,6 +8,7 @@ edition = "2021"
 [dependencies]
 
 notify = "4.0.17"
+ctrlc = "3.2.4"
 
 [dependencies.sdl2]
 version = "0.35.2"

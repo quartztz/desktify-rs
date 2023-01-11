@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import sys
 from time import sleep
 import requests
@@ -7,14 +9,12 @@ import spotipy.util as util
 import os
 import json
 
-# from rich import print
-
 USERNAME = "quartztz"
-PATH_TO_IMAGE = "/home/quartztz/code/rs/album_img/assets/album_img.png"
+PATH_TO_IMAGE = "./assets/album_img.png"
 
 def get_and_write_to_file(song): 
   # print(song)
-  print("new song!")
+  print(f"new song: {song['item']['name']} by {song['item']['artists'][0]['name']}!")
   loc_url = song['item']['album']['images'][0]['url']
   url = loc_url
 
@@ -37,7 +37,10 @@ def main():
     # print("running properly! listening to your music")
     while True: 
       current = spotify.currently_playing()
-        
+      
+      if current == None: 
+          continue
+
       if old == None or current["item"]["album"]["name"] != old["item"]["album"]["name"]:
         old = current
         get_and_write_to_file(current)

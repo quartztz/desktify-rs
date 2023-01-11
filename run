@@ -1,4 +1,4 @@
 #!/usr/bin/bash
 
-python3 src/get.py &
-cargo run
+src/desktify-get.py &
+cargo r -r

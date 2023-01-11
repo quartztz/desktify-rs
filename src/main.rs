@@ -7,16 +7,17 @@ use sdl2::video::{WindowContext};
 use std::time::Duration;
 use std::path::Path;
 
-use notify::{Watcher, RecursiveMode, watcher, DebouncedEvent};
+use notify::{Watcher, RecursiveMode, watcher};
 use std::sync::mpsc::channel; 
 
+static IMG_PATH: &str = "assets/album_img.png";
+
 fn main() {
+
     let sdl_context = sdl2::init().unwrap();
     let video = sdl_context.video().unwrap();
 
     let _image_context = sdl2::image::init(InitFlag::PNG | InitFlag::JPG).unwrap();
-
-    let path: &str = "assets/album_img.png";
 
     let window = video.window("hehe", 400, 400)
         .position_centered()
@@ -27,13 +28,17 @@ fn main() {
 
     canvas.set_draw_color(Color::WHITE);
     let texture_creator = canvas.texture_creator();
-    let mut texture = texture_creator.load_texture(Path::new(path)).unwrap();
+
+    let mut texture = update_texture(&texture_creator);
+    
     canvas.copy(&texture, None, None).unwrap();
     canvas.present();
 
     let (tx, rx) = channel();
     let mut watcher = watcher(tx, Duration::from_millis(20)).unwrap();
-    watcher.watch(path, RecursiveMode::Recursive).unwrap();
+    watcher.watch(IMG_PATH, RecursiveMode::Recursive).unwrap();
+    
+    // ugly
     let mut image_changed: bool = false;
     let mut should_change: bool = false;
     
@@ -43,7 +48,8 @@ fn main() {
         for event in event_pump.poll_iter() {
             match event {
                 Event::Quit { .. } |
-                Event::KeyDown {keycode: Some(Keycode::Escape), .. } => {
+                Event::KeyDown {keycode: Some(Keycode::Escape), .. } | 
+                Event::KeyDown {keycode: Some(Keycode::Q), .. } => {
                     break 'main;
                 }
                 _ => {} 
@@ -51,12 +57,8 @@ fn main() {
         }
         match rx.recv_timeout(Duration::from_millis(20)) {
             Ok(event) => {
-                // match event {
-                //     DebouncedEvent::Write(_) => println!("new writing!"),
-                //     _ => println!("CHANGE: {:?}", event),
-                // }
-                println!("{:?}", event);
-                
+                // println!("{:?}", event);
+                // ^^ debug 
                 image_changed = true;
             },
             Err(e) => 
@@ -82,5 +84,5 @@ fn main() {
 }
 
 fn update_texture(tc: &TextureCreator<WindowContext>) -> Texture<'_> {
-    tc.load_texture(Path::new("assets/album_img.png")).unwrap()
+    tc.load_texture(Path::new(IMG_PATH)).unwrap()
 }
