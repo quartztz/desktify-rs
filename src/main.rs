@@ -1,5 +1,5 @@
 use sdl2::pixels::Color;
-use sdl2::event::Event; 
+use sdl2::event::{Event, WindowEvent}; 
 use sdl2::keyboard::Keycode;
 use sdl2::image::{LoadTexture, InitFlag};
 use sdl2::render::{TextureCreator, Texture};
@@ -7,12 +7,16 @@ use sdl2::video::{WindowContext};
 use std::time::Duration;
 use std::path::Path;
 
+use std::env; 
+
 use notify::{Watcher, RecursiveMode, watcher};
 use std::sync::mpsc::channel; 
 
 static IMG_PATH: &str = "assets/album_img.png";
 
 fn main() {
+
+    let args: Vec<String> = env::args().collect();
 
     let sdl_context = sdl2::init().unwrap();
     let video = sdl_context.video().unwrap();
@@ -52,6 +56,9 @@ fn main() {
                 Event::KeyDown {keycode: Some(Keycode::Q), .. } => {
                     break 'main;
                 }
+                Event::Window {win_event: WindowEvent::Resized(x, y), ..} => {
+                    println!("{}, {}", x, y);
+                }
                 _ => {} 
             }
         }
@@ -66,7 +73,10 @@ fn main() {
                     println!("ERROR: {:?}", e);
                 }
         }
-
+        
+        // very crude FSM
+        // could and should be replaced
+        // please
         if should_change {
             texture = update_texture(&texture_creator);
             canvas.copy(&texture, None, None).unwrap();

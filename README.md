@@ -6,7 +6,7 @@ opens a 400x400px window on your desktop, showing the album art for the currentl
 
 ## setup and use
 
-you need a Spotify developer account, and the following environment variables set: 
+you need a Spotify developer account, a valid project (should be straightforward enough to create), and the following environment variables set: 
  - `SPOTIPY_CLIENT_ID`
  - `SPOTIPY_CLIENT_SECRET`
  - `SPOTIPY_REDIRECT_URI`
@@ -22,10 +22,10 @@ dependencies:
  - `spotipy`
  - `json`
 
-to stop, exit the application, then close the existing python3 processes. i should really find a way to stop them myself, sorry. 
+to stop, simply press `q` or `Esc` while the window is in focus, or hit `ctrl-c` while the terminal you ran from is in focus. 
 
 ## TODOS
 
- - [ ] find a way to kill the python processes on exit.
+ - [x] find a way to kill the python processes on exit.
  - [ ] make it less complicated.
  - [ ] make the window resizable.
