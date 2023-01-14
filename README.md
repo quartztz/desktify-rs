@@ -29,3 +29,5 @@ to stop, simply press `q` or `Esc` while the window is in focus, or hit `ctrl-c`
  - [x] find a way to kill the python processes on exit.
  - [ ] make it less complicated.
  - [ ] make the window resizable.
+ - [ ] fix the various errors that may or may not pop up.
+ 
