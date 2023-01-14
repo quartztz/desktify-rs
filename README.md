@@ -15,7 +15,7 @@ in accordance to what they are set to in your account.
 make sure to compile before running: 
 ```bash
 cargo build --release
-``
+```
 then just run `./run`. 
 
 dependencies: 
