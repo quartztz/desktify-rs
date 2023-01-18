@@ -2,9 +2,11 @@
 
 as the description implies.
 
-opens a 400x400px window on your desktop, showing the album art for the currently playing song. if the song changes and i've done my job right, the album art will react accordingly. 
+opens a window on your desktop, showing the album art for the currently playing song. if the song changes and i've done my job right, the album art will react accordingly. 
 
 ## setup and use
+
+### build and setup
 
 you need a Spotify developer account, a valid project (should be straightforward enough to create), and the following environment variables set: 
  - `SPOTIPY_CLIENT_ID`
@@ -16,18 +18,28 @@ make sure to compile before running:
 ```bash
 cargo build --release
 ```
-then just run `./run`. 
 
 dependencies: 
  - `spotipy`
  - `json`
 
-to stop, simply press `q` or `Esc` while the window is in focus, or hit `ctrl-c` while the terminal you ran from is in focus. 
+### usage
+simply run `./run` with an optional argument for size: 
+
+```bash
+./run <size: {int or empty}>
+```
+
+default size is 400x400px, non resizable while running unfortunately. to stop, simply press `q` or `Esc` while the window is in focus, or hit `ctrl-c` while the terminal you ran from is in focus. 
 
 ## TODOS
 
  - [x] find a way to kill the python processes on exit.
  - [ ] make it less complicated.
+<<<<<<< HEAD
  - [ ] make the window resizable.
  - [ ] fix the various errors that may or may not pop up.
  
+=======
+ - [x] make the window resizable (implemented-ish).
+>>>>>>> c8cdaca (resizability!)

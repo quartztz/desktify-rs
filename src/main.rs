@@ -3,7 +3,7 @@ use sdl2::event::{Event, WindowEvent};
 use sdl2::keyboard::Keycode;
 use sdl2::image::{LoadTexture, InitFlag};
 use sdl2::render::{TextureCreator, Texture};
-use sdl2::video::{WindowContext};
+use sdl2::video::WindowContext;
 use std::time::Duration;
 use std::path::Path;
 
@@ -13,17 +13,27 @@ use notify::{Watcher, RecursiveMode, watcher};
 use std::sync::mpsc::channel; 
 
 static IMG_PATH: &str = "assets/album_img.png";
+const DEFAULT_SIZE: u32 = 400; 
 
 fn main() {
 
     let args: Vec<String> = env::args().collect();
+    
+    println!("{:?}", args);
 
     let sdl_context = sdl2::init().unwrap();
     let video = sdl_context.video().unwrap();
 
     let _image_context = sdl2::image::init(InitFlag::PNG | InitFlag::JPG).unwrap();
+    
+    let size: u32 = if args.len() == 2 { args[1].parse().unwrap() } else { DEFAULT_SIZE }; 
+    
+    if (size != 400) {
+        // pointless debug 
+        println!("running with nonstandard size {}", size); 
+    }
 
-    let window = video.window("hehe", 400, 400)
+    let window = video.window("hehe", size, size)
         .position_centered()
         .build()
         .unwrap();

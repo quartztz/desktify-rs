@@ -1,4 +1,4 @@
 #!/usr/bin/bash
 
-src/desktify-get.py & ./target/release/album_img && kill $!
+src/desktify-get.py & ./target/release/album_img $1 && kill $!
 
