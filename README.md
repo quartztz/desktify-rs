@@ -36,10 +36,4 @@ default size is 400x400px, non resizable while running unfortunately. to stop, s
 
  - [x] find a way to kill the python processes on exit.
  - [ ] make it less complicated.
-<<<<<<< HEAD
- - [ ] make the window resizable.
- - [ ] fix the various errors that may or may not pop up.
- 
-=======
  - [x] make the window resizable (implemented-ish).
->>>>>>> c8cdaca (resizability!)
