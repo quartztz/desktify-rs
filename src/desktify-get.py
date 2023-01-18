@@ -7,7 +7,6 @@ import spotipy
 import spotipy.util as util
 
 import os
-import json
 
 PATH_TO_IMAGE = "./assets/album_img.png"
 
@@ -28,8 +27,10 @@ def main():
   scope = 'user-read-currently-playing'
 
   user = os.environ.get('SPOTIFY_USERNAME')
+  client_id = os.environ.get('SPOTIPY_CLIENT_ID')
+  client_secret = os.environ.get('SPOTIPY_CLIENT_SECRET')
+  token = util.prompt_for_user_token(username=user, scope=scope, client_id=client_id, client_secret=client_secret, redirect_uri="http://127.0.0.1:8888/callback")
 
-  token = util.prompt_for_user_token(user, scope, redirect_uri="http://127.0.0.1:8888/callback")
   old = None
   
   if token: 
@@ -41,6 +42,7 @@ def main():
       if old == None or (current != None and current["item"]["album"]["name"] != old["item"]["album"]["name"]):
         old = current
         get_and_write_to_file(current)
+      
       sleep(2)
     
   else: 

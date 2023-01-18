@@ -19,7 +19,8 @@ fn main() {
 
     let args: Vec<String> = env::args().collect();
     
-    println!("{:?}", args);
+    // debug
+    // println!("{:?}", args);
 
     let sdl_context = sdl2::init().unwrap();
     let video = sdl_context.video().unwrap();
@@ -27,12 +28,7 @@ fn main() {
     let _image_context = sdl2::image::init(InitFlag::PNG | InitFlag::JPG).unwrap();
     
     let size: u32 = if args.len() == 2 { args[1].parse().unwrap() } else { DEFAULT_SIZE }; 
-    
-    if (size != 400) {
-        // pointless debug 
-        println!("running with nonstandard size {}", size); 
-    }
-
+   
     let window = video.window("hehe", size, size)
         .position_centered()
         .build()
@@ -73,7 +69,7 @@ fn main() {
             }
         }
         match rx.recv_timeout(Duration::from_millis(20)) {
-            Ok(event) => {
+            Ok(_event) => {
                 // println!("{:?}", event);
                 // ^^ debug 
                 image_changed = true;
