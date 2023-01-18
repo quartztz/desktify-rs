@@ -34,7 +34,8 @@ default size is 400x400px, non resizable while running unfortunately. to stop, s
 
 ## TODOS
 
+ - [ ] fix expiring token issue. 
  - [x] find a way to kill the python processes on exit.
- - [ ] make it less complicated.
  - [x] make the window resizable (implemented-ish).
  - [ ] cache images to reduce bandwidth usage (use file/album name as key?). 
+ - [ ] make it less complicated.
